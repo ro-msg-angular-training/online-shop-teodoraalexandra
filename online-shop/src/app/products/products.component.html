@@ -1,5 +1,3 @@
-<h1 id="title">Products</h1>
-
 <table id="products">
   <tr>
     <th>Category</th>
@@ -7,7 +5,7 @@
     <th>Price</th>
   </tr>
 
-  <tr *ngFor="let product of products">
+  <tr *ngFor="let product of products" routerLink="/detail/{{product.id}}">
     <td>{{product.category}}</td>
     <td>{{product.name}}</td>
     <td>{{product.price}}</td>

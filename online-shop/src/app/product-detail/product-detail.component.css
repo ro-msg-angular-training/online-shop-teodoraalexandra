@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#title {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #0066cc;
+}
+
+#wrapper {
+  padding: 20px;
+  border: 5px solid #4CAF50;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+ul.inline li {
+  display:inline;
+  padding: 20px;
+  font-size: 20px;
+}
+
+button {
+  float: right;
+}
+
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin: 4px 2px;
+}
