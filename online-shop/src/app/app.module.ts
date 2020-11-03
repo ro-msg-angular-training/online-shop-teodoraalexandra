@@ -9,16 +9,21 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 
 import {FormsModule} from "@angular/forms";
 
+import { HttpClientModule } from '@angular/common/http';
+import { CartComponent } from './cart/cart.component';
+
 @NgModule({
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule
+  ],
   declarations: [
     AppComponent,
     ProductsComponent,
-    ProductDetailComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
+    ProductDetailComponent,
+    CartComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

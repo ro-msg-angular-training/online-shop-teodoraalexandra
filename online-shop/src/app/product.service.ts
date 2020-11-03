@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Product } from "./model/product";
-import { PRODUCTS } from "./repository/mock-products";
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor() { }
+  private productURL = "http://localhost:3000/products";
 
-  getProducts(): Product[] {
-    return PRODUCTS;
+  constructor(private http: HttpClient) { }
+
+  getProducts() : Observable<Product[]> {
+    return this.http.get<Product[]>(this.productURL);
   }
 
-  getProduct(id: Number): Product {
-    return PRODUCTS.find(product => product.id === id);
+  getProduct(id: Number): Observable<Product> {
+    return this.http.get<Product>(this.productURL + "/" + id);
+  }
+
+  deleteProduct(id: Number): Observable<{}> {
+    return this.http.delete(this.productURL + "/" + id);
   }
 }
+
+// TODO: Active Products - Cart -> let user know where he is
