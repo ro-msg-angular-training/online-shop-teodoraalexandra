@@ -24,6 +24,12 @@ export class ProductService {
   deleteProduct(id: Number): Observable<{}> {
     return this.http.delete(this.productURL + "/" + id);
   }
-}
 
-// TODO: Active Products - Cart -> let user know where he is
+  addProduct(product: Product): Observable<{}> {
+    return this.http.post(this.productURL, product);
+  }
+
+  updateProduct(id: Number, product: Product): Observable<{}> {
+    return this.http.put(this.productURL + "/" + id, product);
+  }
+}

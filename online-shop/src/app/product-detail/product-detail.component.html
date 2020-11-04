@@ -2,8 +2,9 @@
 
   <h2 id="title">Product: {{product.name}}</h2>
 
-  <button (click)="addToCart()" class="button">add</button>
+  <button (click)="addToCart()" class="button">add to cart</button>
   <button (click)="deleteProduct(product.id)" class="button">delete</button>
+  <button routerLink="/update/{{product.id}}" class="button">edit</button>
   <button (click)="goBack()" class="button">back</button>
 
     <ul class="inline">

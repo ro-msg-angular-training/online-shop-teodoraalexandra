@@ -1,0 +1,28 @@
+<div id="wrapper">
+  <h2 id="title">Add new product</h2><br/><br/>
+
+  <button (click)="add()"
+          class="button"
+          [disabled]="productName.value === '' || productCategory.value === '' || productPrice.value === ''"
+          [ngClass]="{'disableCss': productName.value === '' || productCategory.value === '' || productPrice.value === ''}">
+    add
+  </button>
+
+  <button (click)="undo()" class="button">undo</button>
+
+  <div class="wrapper">
+    <form>
+
+      <label>Name:</label>
+      <input type="text" [formControl]="productName">
+
+      <label>Category:</label>
+      <input type="text" [formControl]="productCategory">
+
+      <label>Price:</label>
+      <input type="number" [formControl]="productPrice">
+
+    </form>
+  </div>
+
+</div>
