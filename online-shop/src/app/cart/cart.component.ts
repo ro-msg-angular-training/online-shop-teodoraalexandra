@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from "../cart.service";
 import { Product } from "../model/product";
+import { OrderProduct } from "../model/orderProduct";
 
 
 @Component({
@@ -21,9 +22,25 @@ export class CartComponent implements OnInit {
     this.productsInCart = this.cartService.getProductsFromCart();
   }
 
-  // TODO: create button of checkout
-  // Flow: get all products from ProductsInCart and post them as an order to the backend
-  // Delete everything locally from cart
-  // Alert a successful message
-  // Redirect to products page
+  checkout() {
+    let productsForOrder: OrderProduct[] = [];
+    this.productsInCart.forEach(product => {
+      const productForOrder: OrderProduct = {
+        "productId": product.id,
+        "quantity": 1
+      }
+      productsForOrder.push(productForOrder);
+    });
+
+    const customer: String = "doej";
+
+    // Checkout will be done in service
+    this.cartService.createOrder(customer, productsForOrder).subscribe();
+
+    // Delete everything from cart (locally)
+    this.productsInCart = [];
+
+    // Alert a successfully message
+    alert("Thank you for your order, " + customer + "!");
+  }
 }

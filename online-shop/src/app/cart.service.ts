@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Product } from "./model/product";
+import { OrderProduct } from "./model/orderProduct";
+import { Order } from "./model/order";
 import { CART } from "./repository/mock-cart";
+import {Observable, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import { catchError, retry } from 'rxjs/operators';
 
 
 @Injectable({
@@ -8,7 +13,27 @@ import { CART } from "./repository/mock-cart";
 })
 export class CartService {
 
-  constructor() { }
+  private orderURL = "http://localhost:3000/orders";
+
+
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      'Something bad happened; please try again later.');
+  }
+
+  constructor(private http: HttpClient) { }
 
   getProductsFromCart() : Product[] {
     return CART;
@@ -16,5 +41,20 @@ export class CartService {
 
   addProductToCart(product: Product) : void {
     CART.push(product);
+  }
+
+  createOrder(customer: String, productsInOrder: OrderProduct[]): Observable<Order> {
+    let order: Order = {
+      "customer": customer,
+      "products": productsInOrder
+    }
+    return this.http.post<Order>(this.orderURL,
+      order,
+      {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'my-auth-token'
+      })
+    })
   }
 }
