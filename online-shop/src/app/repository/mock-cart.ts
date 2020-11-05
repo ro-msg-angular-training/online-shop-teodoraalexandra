@@ -1,3 +1,3 @@
-import { Product} from "../model/product";
+import { Product} from "../models/product";
 
 export const CART: Product[] = [];

@@ -4,15 +4,21 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ProductsComponent } from './products/products.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
-
+import { ProductsComponent } from './components/products/products.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { HttpClientModule } from '@angular/common/http';
-import { CartComponent } from './cart/cart.component';
-import { UpdateComponent } from './update/update.component';
-import { AddComponent } from './add/add.component';
+import { CartComponent } from './components/cart/cart.component';
+import { UpdateComponent } from './components/update/update.component';
+import { AddComponent } from './components/add/add.component';
+import { ProductService } from "./services/product.service";
+import {EffectsModule} from "@ngrx/effects";
+import {ProductEffects} from "./store/effects/product.effects";
+import {StoreModule} from "@ngrx/store";
+import {appReducers} from "./store/reducers/app.reducers";
+import {StoreRouterConnectingModule} from "@ngrx/router-store";
+import { ProductComponent } from './containers/product/product.component';
 
 @NgModule({
   imports: [
@@ -20,7 +26,10 @@ import { AddComponent } from './add/add.component';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([ProductEffects]),
+    StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
   ],
   declarations: [
     AppComponent,
@@ -28,9 +37,10 @@ import { AddComponent } from './add/add.component';
     ProductDetailComponent,
     CartComponent,
     UpdateComponent,
-    AddComponent
+    AddComponent,
+    ProductComponent
   ],
-  providers: [],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

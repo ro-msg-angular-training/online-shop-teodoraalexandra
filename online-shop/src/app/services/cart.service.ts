@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Product } from "./model/product";
-import { OrderProduct } from "./model/orderProduct";
-import { Order } from "./model/order";
-import { CART } from "./repository/mock-cart";
+import { Product } from "../models/product";
+import { OrderProduct } from "../models/orderProduct";
+import { Order } from "../models/order";
+import { CART } from "../repository/mock-cart";
 import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';

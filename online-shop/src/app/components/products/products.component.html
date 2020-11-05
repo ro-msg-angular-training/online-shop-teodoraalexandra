@@ -7,7 +7,7 @@
     <th>Price</th>
   </tr>
 
-  <tr *ngFor="let product of products" routerLink="/detail/{{product.id}}">
+  <tr *ngFor="let product of products$ | async" routerLink="/detail/{{product.id}}">
     <td>{{product.category}}</td>
     <td>{{product.name}}</td>
     <td>{{product.price}}</td>

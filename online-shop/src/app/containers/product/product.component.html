@@ -1,5 +1,4 @@
-<div *ngIf="product" id="wrapper">
-
+<div id="wrapper">
   <h2 id="title">Product: {{product.name}}</h2>
 
   <button (click)="addToCart()" class="button">add to cart</button>
@@ -7,19 +6,18 @@
   <button routerLink="/update/{{product.id}}" class="button">edit</button>
   <button (click)="goBack()" class="button">back</button>
 
-    <ul class="inline">
-      <li>Name:</li>
-      <li>{{product.name}}</li>
-    </ul>
+  <ul class="inline">
+    <li>Name:</li>
+    <li>{{product.name}}</li>
+  </ul>
 
-    <ul class="inline">
-      <li>Category:</li>
-      <li>{{product.category}}</li>
-    </ul>
+  <ul class="inline">
+    <li>Category:</li>
+    <li>{{product.category}}</li>
+  </ul>
 
-    <ul class="inline">
-      <li>Price:</li>
-      <li>{{product.price}}</li>
-    </ul>
-
+  <ul class="inline">
+    <li>Price:</li>
+    <li>{{product.price}}</li>
+  </ul>
 </div>
