@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from "../../services/cart.service";
-import { Product } from "../../models/product";
-import { OrderProduct } from "../../models/orderProduct";
+import { Store, select } from '@ngrx/store';
+import {IAppState} from "../../store/state/app.state";
+import {GetCartProducts} from "../../store/actions/cart.actions";
+import {selectCartProductList} from "../../store/selectors/cart.selector";
 
 
 @Component({
@@ -10,20 +11,15 @@ import { OrderProduct } from "../../models/orderProduct";
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  productsInCart: Product[];
-
-  constructor(private cartService: CartService) { }
+  cart$ = this._store.pipe(select(selectCartProductList));
+  constructor(private _store: Store<IAppState>) { }
 
   ngOnInit(): void {
-    this.getProducts();
-  }
-
-  getProducts(): void {
-    this.productsInCart = this.cartService.getProductsFromCart();
+    this._store.dispatch(new GetCartProducts());
   }
 
   checkout() {
-    let productsForOrder: OrderProduct[] = [];
+    /*let productsForOrder: OrderProduct[] = [];
     this.productsInCart.forEach(product => {
       const productForOrder: OrderProduct = {
         "productId": product.id,
@@ -41,6 +37,6 @@ export class CartComponent implements OnInit {
     this.productsInCart = [];
 
     // Alert a successfully message
-    alert("Thank you for your order, " + customer + "!");
+    alert("Thank you for your order, " + customer + "!");*/
   }
 }

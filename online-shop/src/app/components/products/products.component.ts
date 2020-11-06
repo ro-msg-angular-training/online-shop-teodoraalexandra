@@ -3,7 +3,6 @@ import { Store, select } from '@ngrx/store';
 import {IAppState} from "../../store/state/app.state";
 import {GetProducts} from "../../store/actions/product.actions";
 import {selectProductList} from "../../store/selectors/product.selector";
-import {Product} from "../../models/product";
 
 
 @Component({
@@ -17,18 +16,5 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(new GetProducts());
-    //this.getProducts();
-  }
-
-  getProducts() : void {
-    /*this.productService.getProducts().subscribe(
-      data => {
-        this.products = data;
-      },
-      err => {
-        console.log(err);
-      }
-    );*/
-
   }
 }

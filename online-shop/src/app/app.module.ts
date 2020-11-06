@@ -15,6 +15,7 @@ import { AddComponent } from './components/add/add.component';
 import { ProductService } from "./services/product.service";
 import {EffectsModule} from "@ngrx/effects";
 import {ProductEffects} from "./store/effects/product.effects";
+import { CartEffects} from "./store/effects/cart.effects";
 import {StoreModule} from "@ngrx/store";
 import {appReducers} from "./store/reducers/app.reducers";
 import {StoreRouterConnectingModule} from "@ngrx/router-store";
@@ -28,7 +29,7 @@ import { ProductComponent } from './containers/product/product.component';
     AppRoutingModule,
     ReactiveFormsModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([ProductEffects]),
+    EffectsModule.forRoot([ProductEffects, CartEffects]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
   ],
   declarations: [
