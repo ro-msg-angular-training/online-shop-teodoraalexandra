@@ -1,0 +1,16 @@
+<button (click)="checkout()" class="button">checkout</button>
+
+<table id="products">
+  <tr>
+    <th>Category</th>
+    <th>Product name</th>
+    <th>Price</th>
+  </tr>
+
+  <tr *ngFor="let product of cart$ | async">
+    <td>{{product.category}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.price}}</td>
+  </tr>
+
+</table>

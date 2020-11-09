@@ -1,0 +1,24 @@
+#title {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #0066cc;
+  display: inline;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #66b3ff;
+}
+
+/* mouse over link */
+a:hover {
+  color: #66b3ff;
+}
+
+.is-active {
+  color: #66b3ff;
+}
+
+

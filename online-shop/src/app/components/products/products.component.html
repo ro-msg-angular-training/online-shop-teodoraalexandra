@@ -1,0 +1,16 @@
+<button routerLink="/add" class="button">add new product</button>
+
+<table id="products">
+  <tr>
+    <th>Category</th>
+    <th>Product name</th>
+    <th>Price</th>
+  </tr>
+
+  <tr *ngFor="let product of products$ | async" routerLink="/detail/{{product.id}}">
+    <td>{{product.category}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.price}}</td>
+  </tr>
+
+</table>
