@@ -18,10 +18,6 @@ export class CartService {
 
   constructor(private http: HttpClient) { }
 
-  /*getProductsFromCart() : Product[] {
-    return CART;
-  }*/
-
   getProductsFromCart() : Observable<Product[]> {
     return this.http.get<Product[]>(this.productURL);
   }

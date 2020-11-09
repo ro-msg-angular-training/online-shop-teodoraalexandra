@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import {IAppState} from "../../store/state/app.state";
-import {GetCartProducts} from "../../store/actions/cart.actions";
+import {GetCartProducts, Checkout} from "../../store/actions/cart.actions";
 import {selectCartProductList} from "../../store/selectors/cart.selector";
+import {OrderProduct} from "../../models/orderProduct";
 
 
 @Component({
@@ -19,24 +20,22 @@ export class CartComponent implements OnInit {
   }
 
   checkout() {
-    /*let productsForOrder: OrderProduct[] = [];
-    this.productsInCart.forEach(product => {
-      const productForOrder: OrderProduct = {
-        "productId": product.id,
-        "quantity": 1
-      }
-      productsForOrder.push(productForOrder);
-    });
+    let productsForOrder: OrderProduct[] = [];
+    this.cart$.subscribe(cartProducts => {
+      cartProducts.forEach(product => {
+        const productForOrder: OrderProduct = {
+          "productId": product[0].id,
+          "quantity": 1
+        }
+        productsForOrder.push(productForOrder);
+      });
+    })
 
     const customer: String = "doej";
 
-    // Checkout will be done in service
-    this.cartService.createOrder(customer, productsForOrder).subscribe();
-
-    // Delete everything from cart (locally)
-    this.productsInCart = [];
+    this._store.dispatch(new Checkout(customer, productsForOrder));
 
     // Alert a successfully message
-    alert("Thank you for your order, " + customer + "!");*/
+    alert("Thank you for your order, " + customer + "!");
   }
 }

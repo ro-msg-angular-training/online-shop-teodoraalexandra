@@ -2,13 +2,13 @@ import { EProductActions} from "../actions/product.actions";
 import { ProductActions } from '../actions/product.actions';
 import { initialProductState, ProductState } from "../state/product.state";
 
+
 export const productReducers = (
   state = initialProductState,
   action: ProductActions
 ): ProductState => {
   switch (action.type) {
     case EProductActions.GetProductsSuccess: {
-      console.log("product reducer")
       return {
         ...state,
         products: action.payload
@@ -19,6 +19,24 @@ export const productReducers = (
         ...state,
         selectedProduct: action.payload
       };
+    }
+
+    case EProductActions.AddProduct: {
+      return {
+        ...state
+      }
+    }
+
+    case EProductActions.UpdateProduct: {
+      return {
+        ...state
+      }
+    }
+
+    case EProductActions.DeleteProduct: {
+      return {
+        ...state
+      }
     }
 
     default:

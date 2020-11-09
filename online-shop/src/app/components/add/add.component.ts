@@ -3,6 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { Product } from "../../models/product";
 import { ProductService } from "../../services/product.service";
 import { FormControl } from '@angular/forms';
+import {Store} from "@ngrx/store";
+import {IAppState} from "../../store/state/app.state";
+import {GetCartProducts} from "../../store/actions/cart.actions";
+import { AddProduct } from "../../store/actions/product.actions";
 
 
 @Component({
@@ -20,6 +24,7 @@ export class AddComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
+    private _store: Store<IAppState>
   ) { }
 
   ngOnInit(): void {
@@ -49,7 +54,8 @@ export class AddComponent implements OnInit {
           name: this.productName.value,
           price: this.productPrice.value
         }
-        this.productService.addProduct(addedProduct).subscribe();
+
+        this._store.dispatch(new AddProduct(addedProduct));
         alert("Added successfully!");
       })
   }

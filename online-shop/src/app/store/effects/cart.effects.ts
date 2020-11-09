@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { switchMap, map, withLatestFrom } from 'rxjs/operators';
+import {switchMap, exhaustMap} from 'rxjs/operators';
 
 import {
   GetCartProductsSuccess,
   ECartActions,
-  GetCartProducts
+  GetCartProducts, Checkout
 } from '../actions/cart.actions';
 import { CartService} from "../../services/cart.service";
 import {Product} from "../../models/product";
+
 
 @Injectable()
 export class CartEffects {
@@ -24,5 +25,13 @@ export class CartEffects {
     ofType<GetCartProducts>(ECartActions.GetCartProducts),
     switchMap(() => this.cartService.getProductsFromCart()),
     switchMap((productList: Product[]) => of(new GetCartProductsSuccess(productList)))
+  );
+
+  @Effect()
+  checkout$ = this.actions$.pipe(
+    ofType<Checkout>(ECartActions.Checkout),
+    exhaustMap(action =>
+      this.cartService.createOrder(action.customer, action.productsInOrder)
+    )
   );
 }

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Product } from "../../models/product";
-import { ProductService } from "../../services/product.service";
 import { FormControl } from '@angular/forms';
+import {select, Store} from "@ngrx/store";
+import {selectSelectedProduct} from "../../store/selectors/product.selector";
+import {IAppState} from "../../store/state/app.state";
+import {UpdateProduct, GetProduct} from "../../store/actions/product.actions";
 
 
 @Component({
@@ -11,6 +14,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./update.component.css'],
 })
 export class UpdateComponent implements OnInit {
+  product$ = this._store.pipe(select(selectSelectedProduct));
   product: Product;
 
   productName = new FormControl('');
@@ -20,29 +24,15 @@ export class UpdateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService,
+    private _store: Store<IAppState>
   ) { }
 
   ngOnInit(): void {
-    this.getProduct();
-  }
-
-  getProduct(): void {
-    // Using snapshot to capture the product's ID as a navigation parameter and display it in the details page
-    const id = +this.route.snapshot.paramMap.get("id");
-    this.productService.getProduct(id).subscribe(
-      data => {
-        this.product = data;
-
-        // Also update the fields from form
-        this.productName.setValue(data.name);
-        this.productCategory.setValue(data.category);
-        this.productPrice.setValue(data.price);
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this._store.dispatch(new GetProduct(this.route.snapshot.params.id));
+    this.product$.subscribe(product => this.product = product);
+    this.productName.setValue(this.product.name);
+    this.productCategory.setValue(this.product.category);
+    this.productPrice.setValue(this.product.price);
   }
 
   undo(): void {
@@ -59,7 +49,7 @@ export class UpdateComponent implements OnInit {
       name: this.productName.value,
       price: this.productPrice.value
     }
-    this.productService.updateProduct(id, updatedProduct).subscribe();
+    this._store.dispatch(new UpdateProduct(id, updatedProduct));
     alert("Updated successfully!");
   }
 }
